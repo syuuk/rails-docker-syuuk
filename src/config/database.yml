@@ -27,6 +27,9 @@ development:
 test:
   <<: *default
   database: app_test
+  # circleciはdocker-composeのコンテナを使えないので db は指定できない。
+  # DBのHOSTを環境変数で指定可能とする。環境変数がないときは初期値として db を指定する
+  host: <%= ENV.fetch("APP_DATABASE_HOST") { 'db'} %>
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
